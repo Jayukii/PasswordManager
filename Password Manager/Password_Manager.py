@@ -1,8 +1,10 @@
 import getpass
 import json
-
+#using the getpass module to securely prompt the user for their password without displaying it on the screen
+#json module to store the account information in a JSON file
 PASSWORDS_FILE = 'passwords.json'
 
+#load_passwords() function loads the account information from the JSON file
 def load_passwords():
     try:
         with open(PASSWORDS_FILE, 'r') as f:
@@ -11,10 +13,12 @@ def load_passwords():
         passwords = {}
     return passwords
 
+#save_passwords() function saves the account information to the JSON file
 def save_passwords(passwords):
     with open(PASSWORDS_FILE, 'w') as f:
         json.dump(passwords, f)
 
+#get_password() function prompts the user for their password and checks if it matches the stored password for the given account
 def get_password(account):
     passwords = load_passwords()
     if account in passwords:
@@ -26,11 +30,13 @@ def get_password(account):
     else:
         print(f"No password found for {account}")
 
+#set_password() function sets the password for the given account
 def set_password(account, password):
     passwords = load_passwords()
     passwords[account] = password
     save_passwords(passwords)
 
+#delete_password() function deletes the stored password for the given account
 def delete_password(account):
     passwords = load_passwords()
     if account in passwords:
@@ -40,12 +46,14 @@ def delete_password(account):
     else:
         print(f"No password found for {account}")
 
+#list_accounts() function lists all the accounts for which passwords are stored
 def list_accounts():
     passwords = load_passwords()
     print("Account with stored password:")
     for account in passwords:
         print(account)
 
+#main() function provides a menu for the user to select the desired option
 def main():
     while True:
         print("\n0ptions:")
